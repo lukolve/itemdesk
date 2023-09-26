@@ -1,3 +1,22 @@
+// CHECK IF IMAGE EXISTS
+function checkIfImageExists(url, callback) {
+  const img = new Image();
+  img.src = url;
+  
+  if (img.complete) {
+    callback(true);
+  } else {
+    img.onload = () => {
+      callback(true);
+    };
+    
+    img.onerror = () => {
+      callback(false);
+    };
+  }
+}
+
+
 //
 // Namespace - Module Pattern.
 //
@@ -156,6 +175,23 @@ var JQD = (function($, window, document, undefined) {
           }
         });
 
+		// menu single-click for settings.
+        d.on('click', 'a.micon', function() {
+          // Get the link's target.
+          var x = $(this).attr('href');
+          var y = $(x).find('a').attr('href');
+
+          // Show the taskbar button.
+          if ($(x).is(':hidden')) {
+            $(x).remove().appendTo('#dock');
+            $(x).show('fast');
+          }
+
+          // Bring window to front.
+          JQD.util.window_flat();
+          $(y).addClass('window_stack').show();
+        });
+
         // Cancel single-click.
         d.on('mousedown', 'a.icon', function() {
           // Highlight the icon.
@@ -288,9 +324,21 @@ var JQD = (function($, window, document, undefined) {
       },
       wallpaper: function() {
         // Add wallpaper last, to prevent blocking.
-        if ($('#desktop').length) {
-          $('body').prepend('<img id="wallpaper" class="abs" src="assets/images/misc/wallpaper.jpg" />');
-        }
+        //if ($('#desktop').length) {
+        //  $('body').prepend('<img id="wallpaper" class="abs" src="assets/images/misc/wallpaper.jpg" />');
+        //}
+		// USAGE
+		checkIfImageExists('assets/images/misc/wallpaper.jpg', (exists) => {
+			if (exists) {
+				// Add wallpaper last, to prevent blocking.
+				if ($('#desktop').length) {
+					$('body').prepend('<img id="wallpaper" class="abs" src="assets/images/misc/wallpaper.jpg" />');
+				}
+				//console.log('Image exists. ')
+			} else {
+				//console.error('Image does not exists.')
+			}
+		});
       }
     },
     util: {
