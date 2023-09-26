@@ -1,7 +1,14 @@
 /* `Basic HTML
 ----------------------------------------------------------------------------------------------------*/
 
+:root {
+    --background: #1a1a2e;
+    --color: #ffffff;
+    --primary-color: #0f3460;
+}
+
 * {
+  box-sizing: border-box;
   cursor: default;
 }
 
@@ -13,6 +20,14 @@ body {
 body {
   background: #222;
   font: 12px/1 'Lucida Grande', Arial, 'Liberation Sans', FreeSans, sans-serif;
+	background: var(--background);
+    color: var(--color);
+    letter-spacing: 1px;
+    transition: background 0.2s ease;
+    -webkit-transition: background 0.2s ease;
+    -moz-transition: background 0.2s ease;
+    -ms-transition: background 0.2s ease;
+    -o-transition: background 0.2s ease;
 }
 
 a {
@@ -67,6 +82,26 @@ div.ui-resizable-handle {
 
 /* `Icons
 ----------------------------------------------------------------------------------------------------*/
+
+.micon {
+	color: #fff;
+}
+
+.micon.active {
+	color: #fff;
+}
+
+.micon img {
+}
+
+.micon:hover,
+.micon.ui-draggable-dragging {
+	color: #fff;
+}
+
+.micon.ui-draggable-dragging {
+  z-index: 20;
+}
 
 .icon {
   background: url(../images/gui/trans_white.png) no-repeat -99999px -99999px;
